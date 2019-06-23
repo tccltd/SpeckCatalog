@@ -21,9 +21,10 @@ class Relational extends Base
         return $this->optionId;
     }
 
-    public function getRecursivePrice($parentProductPrice = 0, $retailPrice = false)
+    // TODO: $includeOptional is probably not the best way to achieve this.
+    public function getRecursivePrice($parentProductPrice = 0, $retailPrice = false, $includeOptional = 0)
     {
-        if ($this->getRequired()) {
+        if ($this->getRequired() || $includeOptional) {
             if ($this->has('choices')) {
                 $choicePrices = array();
                 foreach ($this->getChoices() as $choice) {
